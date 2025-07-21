@@ -8,6 +8,8 @@ import LayerEngine from './src/engine/LayerEngine.js';
 // 새로 만든 엔진과 매니저들을 import 합니다.
 import UnitEngine from './src/engine/UnitEngine.js';
 import FormationEngine from './src/engine/FormationEngine.js';
+// AI 매니저를 불러옵니다.
+import AIManager from './src/ai/AIManager.js';
 
 // --- 게임 초기화 및 시작 ---
 const game = new GameEngine();
@@ -18,6 +20,7 @@ game.start();
 const stageManager = new BattleStageManager('game-container');
 const layerEngine = new LayerEngine('game-container');
 const unitEngine = new UnitEngine();
+const aiManager = new AIManager(); // AI 매니저 생성
 
 // --- 스테이지 및 레이어 설정 ---
 stageManager.setupStage('assets/images/stage/battle-stage-arena.png');
@@ -32,13 +35,25 @@ const formationEngine = new FormationEngine(unitLayer, gridLayer);
 // 1. 워리어 유닛 인스턴스 생성
 const warrior = unitEngine.createUnit('class', 'warrior');
 if (warrior) {
-    // 2. 워리어를 그리드 왼편에 배치 (예: 2번째 열, 5번째 행)
+    aiManager.registerUnit(warrior); // 워리어를 AI 매니저에 등록
     formationEngine.placeUnit(warrior, 'assets/images/unit/warrior.png', 1, 4);
 }
 
 // 3. 좀비 유닛 인스턴스 생성
 const zombie = unitEngine.createUnit('monster', 'zombie');
 if (zombie) {
-    // 4. 좀비를 그리드 오른편에 배치 (예: 15번째 열, 5번째 행)
+    aiManager.registerUnit(zombie); // 좀비를 AI 매니저에 등록
     formationEngine.placeUnit(zombie, 'assets/images/unit/zombie.png', 14, 4);
+}
+
+// --- 예시: AI 턴 처리 ---
+const allUnits = [warrior, zombie].filter(Boolean);
+const enemyOfWarrior = [zombie].filter(Boolean);
+const enemyOfZombie = [warrior].filter(Boolean);
+
+if (warrior) {
+    aiManager.updateBlackboard(warrior, allUnits, enemyOfWarrior);
+}
+if (zombie) {
+    aiManager.updateBlackboard(zombie, allUnits, enemyOfZombie);
 }

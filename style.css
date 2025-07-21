@@ -1,0 +1,45 @@
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* 게임이 펼쳐질 주 무대 */
+#game-container {
+    position: relative; /* 자식 요소(유닛)들의 위치 기준점이 됨 */
+    width: 800px;
+    height: 600px;
+    border: 3px solid #555;
+    background-color: #2c3e50; /* 단순한 배경색 */
+}
+
+/* UI 요소들이 담길 컨테이너 */
+#ui-container {
+    width: 800px;
+    margin-top: 20px;
+}
+
+/* 앞으로 JavaScript를 통해 생성될 모든 유닛에
+   적용할 기본 클래스입니다.
+*/
+.unit {
+    position: absolute; /* game-container를 기준으로 위치를 잡음 */
+    /* width, height, transform 등의 속성은
+       JavaScript에서 개별 유닛에 맞게 설정합니다. */
+}

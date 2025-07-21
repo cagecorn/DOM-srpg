@@ -12,15 +12,6 @@ body {
     /* 화면 크기를 초과해도 스크롤바를 남겨 전체 화면이 잘리지 않도록 함 */
 }
 
-h1 {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    z-index: 100; /* 다른 요소들보다 위에 보이도록 설정 */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
 
 /* 게임이 펼쳐질 주 무대 */
 #game-container {

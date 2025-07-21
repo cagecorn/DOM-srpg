@@ -1,5 +1,5 @@
 export class GridEngine {
-    constructor(width, height) {
+    constructor(width = 16, height = 9) {
         this.width = width;
         this.height = height;
         this.grid = [];
@@ -13,7 +13,7 @@ export class GridEngine {
             }
             this.grid.push(row);
         }
-        console.log('Grid created:', this.grid);
+        console.log(`Grid created with size: ${this.width}x${this.height}`);
     }
 
     getGrid() {

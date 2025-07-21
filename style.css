@@ -1,0 +1,15 @@
+body {
+    background-color: #333;
+    color: #eee;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#game-board {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    border: 2px solid #eee;
+    background-color: #555;
+    margin: 20px auto;
+}

@@ -5,11 +5,11 @@
     box-sizing: border-box;
 }
 
-/* body에서 스크롤바가 생기지 않도록 설정 */
+/* 화면 전체를 사용하되 필요 시 스크롤바를 표시 */
 body {
     background-color: #000;
     font-family: 'Malgun Gothic', sans-serif;
-    overflow: hidden; /* 중요: 화면보다 큰 요소가 있어도 스크롤바를 숨김 */
+    /* 화면 크기를 초과해도 스크롤바를 남겨 전체 화면이 잘리지 않도록 함 */
 }
 
 h1 {

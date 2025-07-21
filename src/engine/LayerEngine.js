@@ -51,11 +51,11 @@ class LayerEngine {
     createGridLayer() {
         const gridLayer = this.createLayer('grid', 10);
 
-        // 컨테이너보다 약간 작게 만들어 체력바 등이 잘리지 않도록 함
-        gridLayer.style.width = '98%';
-        gridLayer.style.height = '98%';
-        gridLayer.style.top = '1%';
-        gridLayer.style.left = '1%';
+        // 컨테이너보다 가로/세로 95% 크기로 설정하고 중앙 정렬
+        gridLayer.style.width = '95%';
+        gridLayer.style.height = '95%';
+        gridLayer.style.top = '2.5%';
+        gridLayer.style.left = '2.5%';
 
         // 그리드 레이아웃 설정
         gridLayer.style.display = 'grid';

@@ -1,6 +1,7 @@
-import GameEngine from './GameEngine.js';
-import BattleStageManager from './BattleStageManager.js';
-import LayerEngine from './LayerEngine.js';
+// Updated import paths to reflect new project structure
+import GameEngine from './src/engine/GameEngine.js';
+import BattleStageManager from './src/manager/BattleStageManager.js';
+import LayerEngine from './src/engine/LayerEngine.js';
 
 const game = new GameEngine();
 

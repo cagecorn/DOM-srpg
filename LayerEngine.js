@@ -48,7 +48,7 @@ class LayerEngine {
      * 16x9 그리드 레이어를 생성합니다.
      * 컨테이너보다 약간 작게 만들어 체력바 등이 잘리지 않도록 합니다.
      */
-    createGridLayer() {
+    createGridLayer(showGridLines = false) {
         const gridLayer = this.createLayer('grid', 10);
 
         // 컨테이너보다 가로/세로 95% 크기로 설정하고 중앙 정렬
@@ -65,7 +65,9 @@ class LayerEngine {
         // 개발 중 그리드를 시각적으로 확인하기 위한 셀(cell) 생성 (선택 사항)
         for (let i = 0; i < 16 * 9; i++) {
             const cell = document.createElement('div');
-            // cell.style.border = '1px solid rgba(255, 255, 255, 0.2)'; // 그리드 선
+            if (showGridLines) {
+                cell.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+            }
             gridLayer.appendChild(cell);
         }
 

@@ -14,6 +14,6 @@ stageManager.setupStage('assets/images/stage/battle-stage-arena.png');
 
 // Set up layers (grid, unit, effect)
 const layerEngine = new LayerEngine('game-container');
-layerEngine.createGridLayer();
+layerEngine.createGridLayer(true);
 layerEngine.createLayer('unit', 20);
 layerEngine.createLayer('effect', 30);

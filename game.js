@@ -67,6 +67,10 @@ const allUnits = [warrior, zombie];
 const warriorSprite = formationEngine.placeUnit(warrior, 'assets/images/unit/warrior.png', 1, 4);
 const zombieSprite = formationEngine.placeUnit(zombie, 'assets/images/unit/zombie.png', 14, 4);
 
+// 실제 스프라이트 DOM 요소를 유닛 데이터에 연결합니다.
+warrior.spriteElement = warriorSprite;
+zombie.spriteElement = zombieSprite;
+
 const warriorVFX = vfxManager.createVFX(warrior, warriorSprite);
 const zombieVFX = vfxManager.createVFX(zombie, zombieSprite);
 

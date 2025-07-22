@@ -35,6 +35,10 @@ class Blackboard {
         this.set('canUseSkill_1', false);        // 1번 스킬 사용 가능 여부
         this.set('canUseSkill_2', false);        // 2번 스킬 사용 가능 여부
         this.set('canUseSkill_3', false);        // 3번 스킬 사용 가능 여부
+
+        // --- 이동 및 공격 관련 신규 정보 ---
+        this.set('movementPath', null);          // 계산된 이동 경로 (좌표 배열)
+        this.set('isTargetInAttackRange', false); // 타겟이 현재 공격 범위 내에 있는지 여부
     }
 
     /**

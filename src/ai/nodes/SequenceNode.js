@@ -11,9 +11,9 @@ class SequenceNode extends Node {
         this.children = children;
     }
 
-    evaluate(unit, blackboard) {
+    async evaluate(unit, blackboard) {
         for (const child of this.children) {
-            const result = child.evaluate(unit, blackboard);
+            const result = await child.evaluate(unit, blackboard);
             if (result === NodeState.FAILURE || result === NodeState.RUNNING) {
                 return result; // 하나라도 실패하거나 실행 중이면 즉시 반환
             }

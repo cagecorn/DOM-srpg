@@ -38,9 +38,8 @@ class AnimationEngine {
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
+                    // 애니메이션이 끝나면 transform만 초기화합니다.
                     element.style.transform = '';
-                    element.style.left = `${endPos.x}px`;
-                    element.style.top = `${endPos.y}px`;
                     resolve();
                 }
             };

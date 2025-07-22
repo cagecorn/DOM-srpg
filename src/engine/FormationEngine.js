@@ -57,6 +57,9 @@ class FormationEngine {
                 onUpdate,
             )
             .then(() => {
+                unitSprite.style.left = `${endPos.x}px`;
+                unitSprite.style.top = `${endPos.y}px`;
+
                 const unitId = unitSprite.dataset.unitId;
                 this.grid.set(`${endCoords.col},${endCoords.row}`, unitId);
 

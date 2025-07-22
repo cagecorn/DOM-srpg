@@ -4,7 +4,7 @@
  * Web Worker에서 실행될 전투 계산 로직입니다.
  */
 self.onmessage = function(event) {
-    const { type, payload } = event.data;
+    const { type, payload, calculationId } = event.data;
 
     if (type === 'calculate_damage') {
         const { attacker, target } = payload;
@@ -15,6 +15,7 @@ self.onmessage = function(event) {
 
         self.postMessage({
             type: 'calculation_complete',
+            calculationId,
             payload: {
                 attackerId: attacker.id,
                 targetId: target.id,

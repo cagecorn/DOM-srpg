@@ -17,14 +17,15 @@ class FormationEngine {
      */
     getPixelCoordinates(col, row) {
         const gridRect = this.gridLayer.getBoundingClientRect();
+        const containerRect = this.unitLayer.getBoundingClientRect();
         const gridCols = 16;
         const gridRows = 9;
         const cellWidth = gridRect.width / gridCols;
         const cellHeight = gridRect.height / gridRows;
 
         return {
-            x: col * cellWidth,
-            y: row * cellHeight,
+            x: gridRect.left - containerRect.left + col * cellWidth,
+            y: gridRect.top - containerRect.top + row * cellHeight,
         };
     }
 

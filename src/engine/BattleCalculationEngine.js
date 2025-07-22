@@ -20,18 +20,22 @@ class BattleCalculationEngine {
             const calculationId = `${attacker.id}-${target.id}-${Date.now()}`;
             this.pendingCalculations.set(calculationId, { resolve, reject });
 
+            const safeAttacker = { id: attacker.id, stats: attacker.stats };
+            const safeTarget = { id: target.id, stats: target.stats };
+
             this.worker.postMessage({
                 type: 'calculate_damage',
-                payload: { attacker, target }
+                calculationId,
+                payload: { attacker: safeAttacker, target: safeTarget }
             });
 
             this.worker.onmessage = (event) => {
-                const { type, payload } = event.data;
+                const { type, payload, calculationId: id } = event.data;
                 if (type === 'calculation_complete') {
-                    const promise = this.pendingCalculations.values().next().value;
+                    const promise = this.pendingCalculations.get(id);
                     if (promise) {
                         promise.resolve(payload);
-                        this.pendingCalculations.clear();
+                        this.pendingCalculations.delete(id);
                     }
                 }
             };

@@ -5,6 +5,8 @@
 export const monsters = {
     zombie: {
         name: '좀비',
+        hp: 80,
+        maxHp: 80,
         stats: {
             strength: 12,     // 힘
             agility: 5,       // 민첩

@@ -8,7 +8,12 @@ import LayerEngine from './src/engine/LayerEngine.js';
 import UnitEngine from './src/engine/UnitEngine.js';
 import FormationEngine from './src/engine/FormationEngine.js';
 import AIManager from './src/ai/AIManager.js';
-import eventEngine from './src/engine/EventEngine.js'; // 이벤트 엔진 import
+import eventEngine from './src/engine/EventEngine.js';
+
+// VFX 및 바인딩 관련 매니저들
+import VFXManager from './src/manager/VFXManager.js';
+import BindingManager from './src/manager/BindingManager.js';
+import DebugVFXManager from './src/manager/DebugVFXManager.js';
 
 // --- 게임 초기화 및 시작 ---
 const game = new GameEngine();
@@ -20,13 +25,17 @@ const stageManager = new BattleStageManager('game-container');
 const layerEngine = new LayerEngine('game-container');
 const unitEngine = new UnitEngine();
 const aiManager = new AIManager();
+const bindingManager = new BindingManager();
+const debugVFXManager = new DebugVFXManager();
 
 // --- 스테이지 및 레이어 설정 ---
 stageManager.setupStage('assets/images/stage/battle-stage-arena.png');
 layerEngine.createGridLayer();
 const unitLayer = layerEngine.createLayer('unit', 20);
+const vfxLayer = layerEngine.createLayer('vfx', 25);
 const gridLayer = layerEngine.getLayer('grid');
-layerEngine.createLayer('effect', 30);
+
+const vfxManager = new VFXManager(vfxLayer);
 
 // --- 포메이션 엔진을 사용하여 유닛 배치 ---
 const formationEngine = new FormationEngine(unitLayer, gridLayer);
@@ -36,13 +45,36 @@ const warrior = unitEngine.createUnit('class', 'warrior');
 const zombie = unitEngine.createUnit('monster', 'zombie');
 
 // AI 등록 시 적군 목록을 함께 넘겨줍니다.
+if (warrior) {
+    const warriorSprite = formationEngine.placeUnit(warrior, 'assets/images/unit/warrior.png', 1, 4);
+    const warriorVFX = vfxManager.createVFX(warrior, warriorSprite);
+    bindingManager.bind(warrior.id, warriorSprite, warriorVFX);
+}
+
+if (zombie) {
+    const zombieSprite = formationEngine.placeUnit(zombie, 'assets/images/unit/zombie.png', 14, 4);
+    const zombieVFX = vfxManager.createVFX(zombie, zombieSprite);
+    bindingManager.bind(zombie.id, zombieSprite, zombieVFX);
+}
+
 if (warrior && zombie) {
     aiManager.registerUnit(warrior, [zombie]);
     aiManager.registerUnit(zombie, [warrior]);
-    
-    formationEngine.placeUnit(warrior, 'assets/images/unit/warrior.png', 1, 4);
-    formationEngine.placeUnit(zombie, 'assets/images/unit/zombie.png', 14, 4);
 }
+
+// 유닛이 배치된 후 VFX 위치를 동기화하고 좌표를 확인합니다.
+setTimeout(() => {
+    vfxManager.updatePositions(bindingManager.getAllBindings());
+
+    const warriorBinding = bindingManager.getBinding(warrior.id);
+    if (warriorBinding) {
+        debugVFXManager.log(`${warrior.name} VFX`, warriorBinding.vfx);
+    }
+    const zombieBinding = bindingManager.getBinding(zombie.id);
+    if (zombieBinding) {
+        debugVFXManager.log(`${zombie.name} VFX`, zombieBinding.vfx);
+    }
+}, 100);
 
 // (예시) 이벤트 리스너 등록
 eventEngine.on('unitAttacked', (data) => {

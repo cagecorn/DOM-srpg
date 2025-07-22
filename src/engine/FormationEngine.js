@@ -45,6 +45,8 @@ class FormationEngine {
         sprite.onload = () => {
             debugCoordinateManager.log(`${unitInstance.name} (ID: ${unitInstance.id})`, sprite);
         };
+
+        return sprite; // 생성된 스프라이트 요소를 반환합니다.
     }
 }
 

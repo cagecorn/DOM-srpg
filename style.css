@@ -38,3 +38,58 @@ body {
     /* width, height, transform 등의 속성은
        JavaScript에서 개별 유닛에 맞게 설정합니다. */
 }
+
+/* VFX 요소들을 담는 컨테이너 */
+.vfx-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 이름표 스타일 */
+.name-plate {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px black;
+    transform: translateY(10px);
+}
+
+/* HP 바 컨테이너 (테두리 역할) */
+.hp-bar-container {
+    width: 80%;
+    height: 8px;
+    border: 1px solid #222;
+    background-color: #555;
+    border-radius: 4px;
+    transform: translateY(-15px);
+    overflow: hidden;
+}
+
+/* 실제 HP를 표시하는 바 */
+.hp-bar {
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+}
+
+/* 아군/적군 색상 */
+.ally {
+    background-color: #005a9c;
+}
+
+.hp-bar-container.ally .hp-bar {
+    background-color: #4dabf7;
+}
+
+.enemy {
+    background-color: #a61e4d;
+}
+
+.hp-bar-container.enemy .hp-bar {
+    background-color: #f06595;
+}
+

@@ -5,6 +5,8 @@
 export const classes = {
     warrior: {
         name: '워리어',
+        hp: 100,
+        maxHp: 100,
         stats: {
             strength: 15,     // 힘: 물리 근접공격력, 들 수 있는 무게 증가
             agility: 10,      // 민첩: 물리 원거리공격력, 정확도, 물리공격 회피율

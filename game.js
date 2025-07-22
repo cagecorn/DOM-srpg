@@ -18,7 +18,6 @@ import BattleCalculationEngine from './src/engine/BattleCalculationEngine.js';
 import DebugBattleCalculationManager from './src/manager/DebugBattleCalculationManager.js';
 import AnimationEngine from './src/engine/AnimationEngine.js';
 import DelayEngine from './src/engine/DelayEngine.js';
-import CameraEngine from './src/engine/CameraEngine.js';
 
 // --- AI 노드 import ---
 import SelectorNode from './src/ai/nodes/SelectorNode.js';
@@ -35,30 +34,22 @@ const game = new GameEngine();
 game.init();
 game.start();
 
-// --- 월드 컨테이너 생성 및 설정 ---
-const gameContainer = document.getElementById('game-container');
-const worldContainer = document.createElement('div');
-worldContainer.id = 'world-container';
-gameContainer.appendChild(worldContainer);
-
 // --- 모든 엔진 및 매니저 인스턴스 생성 ---
-const stageManager = new BattleStageManager('world-container'); // 'game-container' -> 'world-container'
-const layerEngine = new LayerEngine('world-container');         // 'game-container' -> 'world-container'
+const stageManager = new BattleStageManager('game-container');
+const layerEngine = new LayerEngine('game-container');
 const unitEngine = new UnitEngine();
 const bindingManager = new BindingManager();
 const debugVFXManager = new DebugVFXManager();
 const turnOrderManager = new TurnOrderManager();
 const terminationManager = new TerminationManager();
-const canvasEngine = new CanvasEngine('world-container', 30); // 'game-container' -> 'world-container', z-index 명시
+const canvasEngine = new CanvasEngine('game-container');
 const battleEngine = new BattleCalculationEngine();
 const debugBattleManager = new DebugBattleCalculationManager();
 const animationEngine = new AnimationEngine();
 const delayEngine = new DelayEngine();
-const cameraEngine = new CameraEngine(gameContainer, worldContainer); // 카메라 엔진 초기화
 const pathfinderEngine = new PathfinderEngine();
 
 // --- 레이어 설정 ---
-// stageManager.setupStage... 와 layerEngine... 호출 코드는 이제 worldContainer 내부에 요소를 생성합니다.
 stageManager.setupStage('assets/images/stage/battle-stage-arena.png');
 layerEngine.createGridLayer();
 const unitLayer = layerEngine.createLayer('unit', 20);

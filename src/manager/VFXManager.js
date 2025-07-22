@@ -58,6 +58,21 @@ class VFXManager {
             this.updatePosition(binding.vfx, binding.sprite);
         });
     }
+
+    /**
+     * 특정 유닛의 HP 바를 업데이트합니다.
+     * @param {number} unitId - 유닛 ID
+     * @param {number} currentHp - 현재 HP
+     * @param {number} maxHp - 최대 HP
+     */
+    updateHpBar(unitId, currentHp, maxHp) {
+        const vfxContainer = this.vfxLayer.querySelector(`.vfx-container[data-unit-id="${unitId}"]`);
+        if (vfxContainer) {
+            const hpBar = vfxContainer.querySelector('.hp-bar');
+            const percentage = Math.max(0, (currentHp / maxHp) * 100);
+            hpBar.style.width = `${percentage}%`;
+        }
+    }
 }
 
 export default VFXManager;

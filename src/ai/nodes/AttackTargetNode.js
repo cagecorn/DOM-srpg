@@ -10,12 +10,10 @@ class AttackTargetNode extends Node {
     evaluate(unit, blackboard) {
         const target = blackboard.get('currentTargetUnit');
         if (!target) {
-            return NodeState.FAILURE; // 타겟이 없으면 공격 실패
+            return NodeState.FAILURE;
         }
 
-        // TODO: 실제 사거리 체크 로직 구현 필요
-        const isInRange = true; // 지금은 무조건 사거리 안에 있다고 가정
-
+        const isInRange = blackboard.get('isTargetInAttackRange');
         if (isInRange) {
             console.log(`[AI Node] ${unit.name}: ${target.name}을(를) 공격합니다!`);
             // EventEngine을 통해 공격 이벤트를 방송합니다.

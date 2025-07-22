@@ -9,6 +9,8 @@ import SequenceNode from './nodes/SequenceNode.js';
 import FindTargetNode from './nodes/FindTargetNode.js';
 import MoveToTargetNode from './nodes/MoveToTargetNode.js';
 import AttackTargetNode from './nodes/AttackTargetNode.js';
+import IsTargetInRangeNode from './nodes/IsTargetInRangeNode.js';
+import FindPathToTargetNode from './nodes/FindPathToTargetNode.js';
 
 /**
  * 게임 내 모든 AI 유닛을 관리하고, 각 유닛의 행동 트리를 실행합니다.
@@ -29,7 +31,7 @@ class AIManager {
     registerUnit(unitInstance, enemyUnits) {
         if (!this.unitData.has(unitInstance.id)) {
             const blackboard = new Blackboard();
-            const behaviorTree = this.createWarriorBehaviorTree(enemyUnits); // 워리어용 트리 생성
+            const behaviorTree = this.createMeleeBehaviorTree(enemyUnits);
             
             this.unitData.set(unitInstance.id, {
                 instance: unitInstance,
@@ -45,21 +47,21 @@ class AIManager {
      * @param {Array<object>} enemyUnits - 적 유닛 목록
      * @returns {Node} - 조립된 행동 트리의 최상위(root) 노드
      */
-    createWarriorBehaviorTree(enemyUnits) {
-        // 행동 트리를 여기서 조립합니다.
+    createMeleeBehaviorTree(enemyUnits) {
         const rootNode = new SelectorNode([
-            // 1순위: 체력이 낮은 적을 찾아 공격하는 시퀀스
-            new SequenceNode([
-                new FindTargetNode(this.targetManager, 'lowestHealth', enemyUnits),
-                new MoveToTargetNode(this.pathfinderEngine),
-                new AttackTargetNode(),
-            ]),
-            // 2순위: 가장 가까운 적을 찾아 공격하는 시퀀스
             new SequenceNode([
                 new FindTargetNode(this.targetManager, 'nearest', enemyUnits),
-                new MoveToTargetNode(this.pathfinderEngine),
-                new AttackTargetNode(),
-            ]),
+                new SelectorNode([
+                    new SequenceNode([
+                        new IsTargetInRangeNode(1),
+                        new AttackTargetNode(),
+                    ]),
+                    new SequenceNode([
+                        new FindPathToTargetNode(this.pathfinderEngine),
+                        new MoveToTargetNode(),
+                    ])
+                ])
+            ])
         ]);
         return rootNode;
     }

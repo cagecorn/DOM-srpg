@@ -70,7 +70,7 @@ class AIManager {
      * 특정 유닛의 턴을 실행합니다.
      * @param {number} unitId - 턴을 실행할 유닛의 ID
      */
-    executeTurn(unitId) {
+    async executeTurn(unitId) {
         const data = this.unitData.get(unitId);
         if (!data) return;
 
@@ -79,7 +79,7 @@ class AIManager {
         // 블랙보드 업데이트 로직 (필요시 여기에 추가)
         
         // 행동 트리 실행
-        data.behaviorTree.evaluate(data.instance, data.blackboard);
+        await data.behaviorTree.evaluate(data.instance, data.blackboard);
 
         console.groupEnd();
     }
